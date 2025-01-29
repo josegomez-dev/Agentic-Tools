@@ -123,7 +123,7 @@ const App: React.FC = () => {
           <p>Inspect Code and check console logs</p>
         </a>
 
-        <a
+        {/* <a
           href="https://t.me/LaunchGoatBetaBot/LaunchGoat"
           className={'card'}
           target="_blank"
@@ -133,7 +133,7 @@ const App: React.FC = () => {
             LaunchGoat <span>-&gt;</span>
           </h2>
           <p>Open LaunchGoat Telegram App</p>
-        </a>
+        </a> */}
 
         <a
           href='https://github.com/josegomez-dev/Agentic-Tools/blob/main/README.md'
@@ -142,7 +142,7 @@ const App: React.FC = () => {
           rel="noopener noreferrer"
         >
           <h2>
-            Start your own Project <span>-&gt;</span>
+            Connect your own Agent <span>-&gt;</span>
           </h2>
           <p>
             Follow <b> <u>README</u> </b> steps to getting your project up.
