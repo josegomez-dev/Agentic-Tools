@@ -35,6 +35,28 @@ const App: React.FC = () => {
       });
   };
 
+  // Function to call the swap-coins endpoint
+  const swapCoinsTestEndpoint = () => {
+    const swapData = {
+      fromCoin: 'ETH',
+      toCoin: 'BTC',
+      amount: 1.5,
+    };
+
+    axios.post('/api/swap-coins', swapData)
+      .then(response => {
+        console.log('Coins swapped:', response.data);
+        setResponse(response.data);
+        setMessage(response.data.message);
+      })
+      .catch(error => {
+        console.error('Error swapping coins:', error);
+        setResponse({
+          error: 'Failed to swap coins. Please try again.',
+        });
+      });
+  };
+
   return (
     <main className={'main'}>
       <div className="background"></div>
@@ -82,10 +104,13 @@ const App: React.FC = () => {
         <a
           className={'card'}
           rel="noopener noreferrer"
-          onClick={connectWalletTestEndpoint}
+          onClick={() => {
+            connectWalletTestEndpoint();
+            swapCoinsTestEndpoint();
+          }}
         >
           <h2>
-            Test Connect Wallet Endpoint <span>-&gt;</span>
+            Test API Server Connection <span>-&gt;</span>
           </h2>
           <p>Inspect Code and check console logs</p>
         </a>

@@ -29,4 +29,27 @@ router.post('/connect-wallet', (req, res) => {
   });
 });
 
+/*
+  This service allows users to swap one cryptocurrency for another. 
+  The user must have a wallet connected via the ConnectWallet service before using this endpoint.
+*/
+router.post('/swap-coins', (req, res) => {
+  const { fromCoin, toCoin, amount } = req.body;
+
+  // Validate the required parameters
+  if (!fromCoin || !toCoin || !amount) {
+    return res.status(400).json({
+      error: 'Missing required parameters: fromCoin, toCoin, and amount are required.',
+    });
+  }
+
+  // Perform additional logic if needed (e.g., call a third-party API to perform the swap)
+  res.status(200).json({
+    message: `Swapped ${amount} ${fromCoin} for ${toCoin} successfully!`,
+    fromCoin,
+    toCoin,
+    amount,
+  });
+});
+
 export default router;
