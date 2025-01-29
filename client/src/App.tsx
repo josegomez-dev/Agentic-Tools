@@ -37,6 +37,7 @@ const App: React.FC = () => {
 
   return (
     <main className={'main'}>
+      <div className="background"></div>
       <div className={'description'}>
         <p>
           Database Conection: <b>{message}</b>
@@ -47,9 +48,7 @@ const App: React.FC = () => {
             target="_blank"
             rel="noopener noreferrer"
           >
-            By{" "}
-            <b>@josegomez.dev
-            </b> 
+            Agentics Micro Services
           </a>
         </div>
       </div>
@@ -57,7 +56,7 @@ const App: React.FC = () => {
       <img
         src={logo}
         className="App-logo"
-        width={200}
+        width={300}
         alt="logo"
         style={{
           filter:
@@ -66,17 +65,19 @@ const App: React.FC = () => {
       />
 
       <div className={'grid'}>
+
         <a
-          href="https://t.me/LaunchGoatBetaBot/LaunchGoat"
+          href="https://beta.launchgo.at/tgWebApp/documentation/indexCoin.html"
           className={'card'}
           target="_blank"
           rel="noopener noreferrer"
         >
           <h2>
-            LaunchGoat <span>-&gt;</span>
+            Agentic Tools <span>-&gt;</span>
           </h2>
-          <p>Open LaunchGoat Telegram App</p>
+          <p>API Documentation for Agentic Tools</p>
         </a>
+
 
         <a
           className={'card'}
@@ -90,15 +91,15 @@ const App: React.FC = () => {
         </a>
 
         <a
-          href="https://beta.launchgo.at/tgWebApp/documentation/indexCoin.html"
+          href="https://t.me/LaunchGoatBetaBot/LaunchGoat"
           className={'card'}
           target="_blank"
           rel="noopener noreferrer"
         >
           <h2>
-            Agentic Tools <span>-&gt;</span>
+            LaunchGoat <span>-&gt;</span>
           </h2>
-          <p>API Documentation for Agentic Tools</p>
+          <p>Open LaunchGoat Telegram App</p>
         </a>
 
         <a

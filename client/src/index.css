@@ -1,9 +1,9 @@
 body {
   margin: 0;
-  background-image: url('./assets/background.jpg');
+  /* background-image: url('./assets/background.jpg');
   background-position: center;
   background-repeat: no-repeat;
-  background-size: cover;
+  background-size: cover; */
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
@@ -262,3 +262,67 @@ code {
   }
 }
 
+/* Animated BG CSS */
+
+.background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #0f2027;
+  background: linear-gradient(45deg, #0f2027, #203a43, #2c5364);
+  background-size: 300% 300%;
+  animation: color-shift 6s ease-in-out infinite;
+  overflow: hidden;
+}
+
+.background::before {
+  content: "";
+  position: absolute;
+  width: 115%;
+  height: 115%;
+  background: repeating-linear-gradient(
+    to right,
+    rgba(255, 255, 255, 0.1) 0,
+    rgba(255, 255, 255, 0.1) 1px,
+    transparent 1px,
+    transparent 50px
+  ),
+  repeating-linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.1) 0,
+    rgba(255, 255, 255, 0.1) 1px,
+    transparent 1px,
+    transparent 50px
+  );
+  animation: wave 3s linear infinite;
+}
+
+@keyframes wave {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(-50px, -50px, 0);
+  }
+}
+
+@keyframes color-shift {
+  0% {
+    background-position: 0% 50%;
+    background: linear-gradient(45deg, #0f2027, #203a43, #2c5364);
+  }
+  25% {
+    background: linear-gradient(45deg, #1e3c72, #2a5298, #405d80);
+  }
+  50% {
+    background: linear-gradient(45deg, #09203f, #537895, #1c3448);
+  }
+  75% {
+    background: linear-gradient(45deg, #134e5e, #71b280, #0f3c48);
+  }
+  100% {
+    background: linear-gradient(45deg, #0f2027, #203a43, #2c5364);
+  }
+}
