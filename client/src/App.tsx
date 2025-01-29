@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import logo from "./assets/logo.webp";
+import { ToastContainer, toast } from 'react-toastify';
 import './globals.css';
 import './index.css';
 
@@ -24,11 +25,13 @@ const App: React.FC = () => {
     axios.post('/api/connect-wallet', walletData)
       .then(response => {
         console.log('Wallet connected:', response.data);
+        toast.success(response.data.message);
         setResponse(response.data);
         setMessage(response.data.message);
       })
       .catch(error => {
         console.error('Error connecting wallet:', error);
+        toast.error('Failed to connect wallet. Please try again.');
         setResponse({
           error: 'Failed to connect wallet. Please try again.',
         });
@@ -46,11 +49,13 @@ const App: React.FC = () => {
     axios.post('/api/swap-coins', swapData)
       .then(response => {
         console.log('Coins swapped:', response.data);
+        toast.success(response.data.message);
         setResponse(response.data);
         setMessage(response.data.message);
       })
       .catch(error => {
         console.error('Error swapping coins:', error);
+        toast.error('Failed to swap coins. Please try again.');
         setResponse({
           error: 'Failed to swap coins. Please try again.',
         });
@@ -59,6 +64,7 @@ const App: React.FC = () => {
 
   return (
     <main className={'main'}>
+      <ToastContainer />
       <div className="background"></div>
       <div className={'description'}>
         <p>
@@ -106,7 +112,9 @@ const App: React.FC = () => {
           rel="noopener noreferrer"
           onClick={() => {
             connectWalletTestEndpoint();
-            swapCoinsTestEndpoint();
+            setTimeout(() => {
+              swapCoinsTestEndpoint();
+            }, 1000);
           }}
         >
           <h2>
@@ -128,7 +136,8 @@ const App: React.FC = () => {
         </a>
 
         <a
-          className={'card disabled-card'}
+          href='https://github.com/josegomez-dev/Agentic-Tools/blob/main/README.md'
+          className={'card'}
           target="_blank"
           rel="noopener noreferrer"
         >
