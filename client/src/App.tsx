@@ -8,7 +8,8 @@ import './index.css';
 const App: React.FC = () => {
   const [message, setMessage] = useState<string>('Loading...');
   const [response, setResponse] = useState<any>(null);
-
+  const [showMenuOptions, setShowMenuOptions] = useState(false);
+  
   useEffect(() => {
     axios.get('/api')
       .then(response => setMessage(response.data))
@@ -62,6 +63,23 @@ const App: React.FC = () => {
       });
   };
 
+  const menuOptions = (
+    <div className="container">
+        <div className="box">
+            <img src="https://cdn.prod.website-files.com/65202616cfa1bf1882f3db51/671de8d84dbc4219e64ab6e4_671de8d6af4b119b6a41ada0_lastImage.png" alt="Option 1 Background"/>
+            <div className="overlay">Social Agent</div>
+        </div>
+        <div className="box">
+            <img src="https://img.freepik.com/premium-photo/robot-with-blue-white-head-that-says-robot_137441-20624.jpg" alt="Option 2 Background"/>
+            <div className="overlay">Transactions Agent</div>
+        </div>
+    </div>
+  )
+
+  if (showMenuOptions) {
+    return menuOptions;
+  }
+
   return (
     <main className={'main'}>
       <ToastContainer />
@@ -91,6 +109,7 @@ const App: React.FC = () => {
             "drop-shadow(0px 4px 8px rgba(0, 0, 0, 0.3))",
         }}
       />
+      
 
       <div className={'grid'}>
 
@@ -123,22 +142,9 @@ const App: React.FC = () => {
           <p>Inspect Code and check console logs</p>
         </a>
 
-        {/* <a
-          href="https://t.me/LaunchGoatBetaBot/LaunchGoat"
-          className={'card'}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            LaunchGoat <span>-&gt;</span>
-          </h2>
-          <p>Open LaunchGoat Telegram App</p>
-        </a> */}
-
         <a
-          href='https://github.com/josegomez-dev/Agentic-Tools/blob/main/README.md'
+          onClick={() => setShowMenuOptions(!showMenuOptions)}
           className={'card'}
-          target="_blank"
           rel="noopener noreferrer"
         >
           <h2>
