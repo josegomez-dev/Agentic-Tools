@@ -1,6 +1,10 @@
 import { Router } from 'express';
+import OpenAI from "openai";
 
 const router = Router();
+const openai = new OpenAI({
+  apiKey: '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'
+});
 
 // GET route for testing
 router.get('/', (req, res) => {
@@ -51,5 +55,52 @@ router.post('/swap-coins', (req, res) => {
     amount,
   });
 });
+
+// Social Agent Endpoint
+router.post("/social-agent", async (req, res) => {
+  console.log('req.body', req.body);
+  const { message } = req.body;
+
+  if (!message) {
+    return res.status(400).json({ error: "Missing required parameter: message" });
+  }
+
+  try {
+    const completion = await openai.chat.completions.create({
+      model: "gpt-3.5-turbo",
+      messages: [{ role: "user", content: message }],
+    });
+
+    res.status(200).json({ response: completion.choices[0].message.content });
+  } catch (error) {
+    console.error("Error calling OpenAI:", error);
+    res.status(500).json({ error: "Failed to process the request." });
+  }
+});
+
+// Financial Transactions Clarification Endpoint
+router.post("/financial-transactions", async (req, res) => {
+  const { transactionDetails } = req.body;
+
+  if (!transactionDetails) {
+    return res.status(400).json({ error: "Missing required parameter: transactionDetails" });
+  }
+
+  try {
+    const completion = await openai.chat.completions.create({
+      model: "gpt-3.5-turbo",
+      messages: [
+        { role: "system", content: "You are a financial assistant. Clarify and summarize transaction details." },
+        { role: "user", content: transactionDetails },
+      ],
+    });
+
+    res.status(200).json({ response: completion.choices[0].message.content });
+  } catch (error) {
+    console.error("Error calling OpenAI:", error);
+    res.status(500).json({ error: "Failed to process the request." });
+  }
+});
+
 
 export default router;

@@ -7,8 +7,13 @@ import './index.css';
 
 const App: React.FC = () => {
   const [message, setMessage] = useState<string>('Loading...');
+
+  const [messages, setMessages] = useState<any>([]);
+  const [input, setInput] = useState("");
+
   const [response, setResponse] = useState<any>(null);
   const [showMenuOptions, setShowMenuOptions] = useState(false);
+  const [showChatApp, setShowChatApp] = useState(false);
   
   useEffect(() => {
     axios.get('/api')
@@ -63,18 +68,62 @@ const App: React.FC = () => {
       });
   };
 
+  const sendMessage = async () => {
+    if (!input.trim()) return;
+
+    const userMessage = { role: "user", content: input };
+    setMessages((prev: any) => [...prev, userMessage]); // Add user message to chat
+
+    try {
+      const response = await axios.post("/api/social-agent", { message: input });
+      const botMessage = { role: "assistant", content: response.data.response };
+
+      setMessages((prev: any) => [...prev, botMessage]); // Add bot response to chat
+    } catch (error) {
+      console.error("Error sending message:", error);
+      setMessages((prev: any) => [...prev, { role: "assistant", content: "Failed to get response." }]);
+    }
+
+    setInput(""); // Clear input field
+  };
+
   const menuOptions = (
     <div className="container">
-        <div className="box">
+        <div className="box" onClick={() => setShowChatApp(true)}>
             <img src="https://cdn.prod.website-files.com/65202616cfa1bf1882f3db51/671de8d84dbc4219e64ab6e4_671de8d6af4b119b6a41ada0_lastImage.png" alt="Option 1 Background"/>
             <div className="overlay">Social Agent</div>
         </div>
-        <div className="box">
+        <div className="box" onClick={() => setShowChatApp(true)}>
             <img src="https://img.freepik.com/premium-photo/robot-with-blue-white-head-that-says-robot_137441-20624.jpg" alt="Option 2 Background"/>
             <div className="overlay">Transactions Agent</div>
         </div>
     </div>
   )
+
+  const chatApp = (
+    <div className="chat-container">
+      <div className="chat-messages">
+        {messages.map((msg: string | any, index: number) => (
+          <div key={index} className={`message ${msg.role}`}>
+            {msg.content}
+          </div>
+        ))}
+      </div>
+      <div className="chat-input">
+        <input 
+          type="text" 
+          value={input} 
+          onChange={(e) => setInput(e.target.value)} 
+          placeholder="Type a message..." 
+        />
+        <button onClick={sendMessage}>Send</button>
+      </div>
+    </div>
+  );
+
+  if (showChatApp) {
+    return chatApp;
+  }
 
   if (showMenuOptions) {
     return menuOptions;
