@@ -3,7 +3,7 @@ import OpenAI from "openai";
 
 const router = Router();
 const openai = new OpenAI({
-  apiKey: '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'
+  apiKey: ''
 });
 
 // GET route for testing
